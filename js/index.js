@@ -1,14 +1,26 @@
 "use strict"
 
-$(document).ready(function() {
-    const url = 'https://pokeapi.co/api/v2/pokemon/?limit=20'
-    fetch(url)
-        .then(function(data){
-            console.log(data)
-            let docReadyLoadPokemon = data.json()
-            console.log(docReadyLoadPokemon)
-        })
-})
+$(document).ready(function () {
+    fetchPokemon();
+    $('.pokemonSearchCard').hide()
+});
+
+const fetchPokemon = () => {
+    const promises = []; // Start off with an empty array of promises
+    for(let i = 1; i <= 150; i++ ) {
+        const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${i}`;
+        promises.push(fetch(pokemonUrl).then((res) => res.json())); //For each one of our requests we push them to promise array
+    }
+    Promise.all(promises).then((results => {
+        const pokemon = results.map((data) =>({ //iterating through each result, going to get a reference to each one of those. With each one of those it then converts it to our built object
+            name: data.name,
+            id: data.id,
+            image: data.sprites['front_default'],
+            type: data.types.map(type => type.type.name).join(', ') //This grabs each name in type and creates a new array. It then joins them into a string.
+        }));
+        console.log(pokemon)
+    }))
+};
 
 $("#userPokemonInputBtn").click(function (e) {
     e.preventDefault();
@@ -24,10 +36,9 @@ $("#userPokemonInput").on('keypress', function (e) {
 
 function getPokemonData() {
     let userPokemonInput = $("#userPokemonInput").val()
-    const url = `https://pokeapi.co/api/v2/pokemon/${userPokemonInput}`
+    let url = `https://pokeapi.co/api/v2/pokemon/${userPokemonInput}`
     fetch(url)
         .then(function (data) {
-            console.log(data)
             let userPokemon = data.json()
             console.log(userPokemon)
         })
