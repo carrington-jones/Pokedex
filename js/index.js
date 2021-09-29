@@ -14,14 +14,33 @@ const fetchPokemon = () => {
     }
     Promise.all(promises).then((results => {
         const pokemon = results.map((data) => ({ //iterating through each result, going to get a reference to each one of those. With each one of those it then converts it to our built object
-            name: data.name,
+            name: capitalizeFirstLetter(data.name),
             id: data.id,
             image: data.sprites['front_default'],
-            type: data.types.map(type => type.type.name).join(', ') //This grabs each name in type and creates a new array. It then joins them into a string.
+            type: data.types.map(type => capitalizeFirstLetter(type.type.name)).join(', ') //This grabs each name in type and creates a new array. It then joins them into a string.
         }));
         displayPokemon(pokemon)
     }))
 };
+
+const displayPokemon = (pokemon => {
+    console.log(pokemon)
+    const pokemonHTMLString = pokemon.map(pokeman =>
+        `
+        <div class="col-3"
+        <div class="card">
+        <img class="card-img-top" src="${pokeman.image}"/>
+        <h2 class="card-title">${pokeman.id}. ${pokeman.name}</h2>
+            <p class="card-text">Type: ${pokeman.type}</p>
+        </div>`).join('');
+
+    $('#pokedex').html(pokemonHTMLString)
+})
+
+//Used to capitalize letters for data from API.
+const capitalizeFirstLetter = (string =>{
+    return string.charAt(0).toUpperCase() + string.slice(1);
+})
 
 $("#userPokemonInputBtn").click(function (e) {
     e.preventDefault();
@@ -45,15 +64,3 @@ function getPokemonData() {
         })
 }
 
-const displayPokemon = (pokemon => {
-    console.log(pokemon)
-    const pokemonHTMLString = pokemon.map(pokeman =>
-        `
-    <li>
-        <img src="${pokeman.image}"/>
-        <h2>${pokeman.id}.${pokeman.name}</h2>
-            <p>Type: ${pokeman.type}</p>
-        </li>
-        `)
-    $('#pokedex').html(pokemonHTMLString)
-    })
