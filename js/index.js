@@ -8,7 +8,7 @@ $(document).ready(function () {
 
 const fetchPokemon = () => {
     const promises = []; // Start off with an empty array of promises
-    for (let i = 1; i <= 150; i++) {
+    for (let i = 1; i <= 150; i++) { //Max is 898.
         const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${i}`;
         promises.push(fetch(pokemonUrl).then((res) => res.json())); //For each one of our requests we push them to promise array
     }
@@ -27,18 +27,19 @@ const displayPokemon = ((pokemon, divId) => {
     console.log(pokemon)
     const pokemonHTMLString = pokemon.map(pokeman =>
         `
-        <div class="col-3"
-        <div class="card">
+        <div class="col-2">
+        <div class="card mb-2">
         <img class="card-img-top" src="${pokeman.image}"/>
-        <h2 class="card-title">${pokeman.id}. ${pokeman.name}</h2>
+        <h3 class="card-title">${pokeman.id}. ${pokeman.name}</h3>
             <p class="card-text">Type: ${pokeman.type}</p>
+            </div>
         </div>`).join('');
 
-    $('#'+ divId).html(pokemonHTMLString)
+    $('#' + divId).html(pokemonHTMLString)
 })
 
 //Used to capitalize letters for data from API.
-const capitalizeFirstLetter = (string =>{
+const capitalizeFirstLetter = (string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 })
 
