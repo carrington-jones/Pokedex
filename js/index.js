@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
     fetchPokemon();
-    $('.pokemonSearchCard').hide()
+    // $('.pokemonSearchCard').hide()
 });
 
 
@@ -19,11 +19,11 @@ const fetchPokemon = () => {
             image: data.sprites['front_default'],
             type: data.types.map(type => capitalizeFirstLetter(type.type.name)).join(', ') //This grabs each name in type and creates a new array. It then joins them into a string.
         }));
-        displayPokemon(pokemon)
+        displayPokemon(pokemon, "pokedex")
     }))
 };
 
-const displayPokemon = (pokemon => {
+const displayPokemon = ((pokemon, divId) => {
     console.log(pokemon)
     const pokemonHTMLString = pokemon.map(pokeman =>
         `
@@ -34,7 +34,7 @@ const displayPokemon = (pokemon => {
             <p class="card-text">Type: ${pokeman.type}</p>
         </div>`).join('');
 
-    $('#pokedex').html(pokemonHTMLString)
+    $('#'+ divId).html(pokemonHTMLString)
 })
 
 //Used to capitalize letters for data from API.
@@ -45,22 +45,30 @@ const capitalizeFirstLetter = (string =>{
 $("#userPokemonInputBtn").click(function (e) {
     e.preventDefault();
     getPokemonData();
+    $('#pokedex').hide()
 })
 
 $("#userPokemonInput").on('keypress', function (e) {
     if (e.keyCode === 13) {
         e.preventDefault();
         getPokemonData()
+        $('#pokedex').hide()
     }
 });
 
 function getPokemonData() {
     let userPokemonInput = $("#userPokemonInput").val()
+    const promises = [];
     let url = `https://pokeapi.co/api/v2/pokemon/${userPokemonInput}`
-    fetch(url)
-        .then(function (data) {
-            let userPokemon = data.json()
-            console.log(userPokemon)
-        })
+    promises.push(fetch(url).then((data) => data.json()))
+    Promise.all(promises).then((results => {
+        const pokemon = results.map((data) => ({ //iterating through each result, going to get a reference to each one of those. With each one of those it then converts it to our built object
+            name: capitalizeFirstLetter(data.name),
+            id: data.id,
+            image: data.sprites['front_default'],
+            type: data.types.map(type => capitalizeFirstLetter(type.type.name)).join(', ') //This grabs each name in type and creates a new array. It then joins them into a string.
+        }));
+        displayPokemon(pokemon, "userPokemonSearchDisplay")
+    }))
 }
 
