@@ -5,6 +5,23 @@ $(document).ready(function () {
     // $('.pokemonSearchCard').hide()
 });
 
+const colors = {
+    fire: '#FDDFDF',
+    grass:'#DEFDE0',
+    electric: '#FCF7DE',
+    water: '#DEF3FD',
+    ground: '#f4e7da',
+    rock: '#d5d5d4',
+    fairy: '#fceaff',
+    poison: '#98d7a5',
+    bug: '#f8d5a3',
+    dragon: '#97b3e6',
+    psychic: '#eaeda1',
+    flying: '#F5F5F5',
+    fighting: '#E6E0D4',
+    normal: '#F5F5F5'
+}
+
 
 const fetchPokemon = () => {
     const promises = []; // Start off with an empty array of promises
@@ -17,7 +34,8 @@ const fetchPokemon = () => {
             name: capitalizeFirstLetter(data.name),
             id: data.id,
             image: data.sprites['front_default'],
-            type: data.types.map(type => capitalizeFirstLetter(type.type.name)).join(', ') //This grabs each name in type and creates a new array. It then joins them into a string.
+            type: capitalizeFirstLetter(data.types[0].type.name), //This grabs each name in type and creates a new array. It then joins them into a string.
+            color: colors[data.types[0].type.name]
         }));
         displayPokemon(pokemon, "pokedex")
     }))
@@ -25,15 +43,21 @@ const fetchPokemon = () => {
 
 const displayPokemon = ((pokemon, divId) => {
     console.log(pokemon)
+
     const pokemonHTMLString = pokemon.map(pokeman =>
         `
         <div class="col-2">
-        <div class="card mb-2">
+        <div class="card mb-2 shadow-lg pokemonCard" style="background-color: ${pokeman.color} ">
         <img class="card-img-top" src="${pokeman.image}"/>
-        <h3 class="card-title">${pokeman.id}. ${pokeman.name}</h3>
-            <p class="card-text">Type: ${pokeman.type}</p>
+        <h3 class="card-title text-center">${pokeman.id}. ${pokeman.name}</h3>
+            <p class="card-text text-center m-2">Type: ${pokeman.type}</p>
             </div>
-        </div>`).join('');
+        </div>`
+    )
+
+
+
+
 
     $('#' + divId).html(pokemonHTMLString)
 })
