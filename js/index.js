@@ -46,7 +46,7 @@ const displayPokemon = ((pokemon, divId) => {
 
     const pokemonHTMLString = pokemon.map(pokeman =>
         `
-        <div class="col-2">
+        <div class="col-sm-12 col-med-6 col-lg-4 col-xl-4 col-xxl-2">
         <div class="card mb-2 shadow-lg pokemonCard" style="background-color: ${pokeman.color} ">
         <img class="card-img-top" src="${pokeman.image}"/>
         <h3 class="card-title text-center">${pokeman.id}. ${pokeman.name}</h3>
@@ -91,7 +91,8 @@ function getPokemonData() {
             name: capitalizeFirstLetter(data.name),
             id: data.id,
             image: data.sprites['front_default'],
-            type: data.types.map(type => capitalizeFirstLetter(type.type.name)).join(', ') //This grabs each name in type and creates a new array. It then joins them into a string.
+            type: capitalizeFirstLetter(data.types[0].type.name), //This grabs each name in type and creates a new array. It then joins them into a string.
+            color: colors[data.types[0].type.name]
         }));
         displayPokemon(pokemon, "userPokemonSearchDisplay")
     }))
