@@ -22,7 +22,6 @@ const colors = {
     normal: '#F5F5F5'
 }
 
-
 const fetchPokemon = () => {
     const promises = []; // Start off with an empty array of promises
     for (let i = 1; i <= 150; i++) { //Max is 898.
@@ -51,15 +50,12 @@ const displayPokemon = ((pokemon, divId) => {
         <img class="card-img-top" src="${pokeman.image}"/>
         <h3 class="card-title text-center">${pokeman.id}. ${pokeman.name}</h3>
         <div class="row">
-            <p class="col-10 card-text text-center m-2">Type: ${pokeman.type}</p>
-            <div class="col-2">
-            <label for="id-of-input" class="custom-checkbox">
-                <input type="checkbox" id="id-of-input"/>
-                <i class="glyphicon glyphicon-star-empty"></i>
-                <i class="glyphicon glyphicon-star"></i>
-                <span>Favorite</span>
-            </label>
+            <div class="col-8 card-text text-center m-2">Type: ${pokeman.type}
             </div>
+                <div class="col-3 my-auto">
+                    <i id="${pokeman.id}" class="fas fa-heart">
+                    </i>
+                </div>
         </div> 
     </div>
 </div>
@@ -104,6 +100,9 @@ function getPokemonData() {
     }))
 }
 
-
+//Favorite button press jQuery//
+$(document).on('click', '.fas', function(){
+    $(this).toggleClass('red');
+});
 
 
