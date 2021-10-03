@@ -101,7 +101,7 @@ function getPokemonData() {
 }
 
 //Favorite button press jQuery//
-$(document).on('click', '.fas', function(){
+$(document).on('click', '.fas', function () {
     $(this).toggleClass('red');
 });
 
