@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 const colors = {
     fire: '#FDDFDF',
-    grass:'#DEFDE0',
+    grass: '#DEFDE0',
     electric: '#FCF7DE',
     water: '#DEF3FD',
     ground: '#f4e7da',
@@ -46,18 +46,24 @@ const displayPokemon = ((pokemon, divId) => {
 
     const pokemonHTMLString = pokemon.map(pokeman =>
         `
-        <div class="col-sm-12 col-med-6 col-lg-4 col-xl-4 col-xxl-2">
-        <div class="card mb-2 shadow-lg pokemonCard" style="background-color: ${pokeman.color} ">
+<div class="col-sm-12 col-med-6 col-lg-4 col-xl-4 col-xxl-2">
+    <div class="card mb-2 shadow-lg pokemonCard" style="background-color: ${pokeman.color} ">
         <img class="card-img-top" src="${pokeman.image}"/>
         <h3 class="card-title text-center">${pokeman.id}. ${pokeman.name}</h3>
-            <p class="card-text text-center m-2">Type: ${pokeman.type}</p>
+        <div class="row">
+            <p class="col-10 card-text text-center m-2">Type: ${pokeman.type}</p>
+            <div class="col-2">
+            <label for="id-of-input" class="custom-checkbox">
+                <input type="checkbox" id="id-of-input"/>
+                <i class="glyphicon glyphicon-star-empty"></i>
+                <i class="glyphicon glyphicon-star"></i>
+                <span>Favorite</span>
+            </label>
             </div>
-        </div>`
-    )
-
-
-
-
+        </div> 
+    </div>
+</div>
+ `)
 
     $('#' + divId).html(pokemonHTMLString)
 })
@@ -97,4 +103,7 @@ function getPokemonData() {
         displayPokemon(pokemon, "userPokemonSearchDisplay")
     }))
 }
+
+
+
 
