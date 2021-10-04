@@ -46,7 +46,7 @@ const displayPokemon = ((pokemon, divId) => {
     const pokemonHTMLString = pokemon.map(pokeman =>
         `
 <div class="col-sm-12 col-med-6 col-lg-4 col-xl-4 col-xxl-2">
-    <div class="card mb-2 shadow-lg pokemonCard" style="background-color: ${pokeman.color} ">
+    <div id="${pokeman.name}" class="card mb-2 shadow-lg pokemonCard" style="background-color: ${pokeman.color} ">
         <img class="card-img-top" src="${pokeman.image}"/>
         <h3 class="card-title text-center">${pokeman.id}. ${pokeman.name}</h3>
         <div class="row">
@@ -103,6 +103,38 @@ function getPokemonData() {
 //Favorite button press jQuery//
 $(document).on('click', '.fas', function () {
     $(this).toggleClass('red');
+    localStorage.setItem(this.id, this.id)
+    localStorageArray.push(this.id)
+
 });
+
+//Local Storage
+
+const localStorageArray = [];
+const localStoragePromises =[];
+
+function localStoragePokemon(localStorageArrayElementValue){
+    let userPokemonFavorite = localStorage.getItem(localStorageArrayElementValue)
+    let url = `https://pokeapi.co/api/v2/pokemon/${userPokemonFavorite}`
+    localStoragePromises.push(fetch(url).then((data) => data.json()))
+    Promise.all(localStoragePromises).then((results => {
+        const pokemon = results.map((data) => ({ //iterating through each result, going to get a reference to each one of those. With each one of those it then converts it to our built object
+            name: capitalizeFirstLetter(data.name),
+            id: data.id,
+            image: data.sprites['front_default'],
+            type: capitalizeFirstLetter(data.types[0].type.name), //This grabs each name in type and creates a new array. It then joins them into a string.
+            color: colors[data.types[0].type.name]
+        }));
+        displayPokemon(pokemon, "userFavoritePokemon")
+    }))
+
+}
+
+$("#yourFavoritesNavBarLink").click(function(e){
+    e.preventDefault();
+    localStorageArray.forEach(pokemon => localStoragePokemon(pokemon))
+    console.log(localStorageArray)
+    $('#pokedex').hide();
+})
 
 
