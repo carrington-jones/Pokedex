@@ -8,6 +8,11 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/54ed633ccb.js" crossorigin="anonymous"></script>
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
     <!--CustomCSS-->
     <link rel="stylesheet" href="css/defaultStyleSheet.css">
 
@@ -17,7 +22,7 @@
 <!--NAVBAR-->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand text-white" href="#">Carrington's Pokedex</a>
+        <a class="navbar-brand text-white" href="/">Carrington's Pokedex</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,10 +30,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                    <a id="homeLink" class="nav-link active text-white" aria-current="page" href="#Pokedeximg">Home</a>
                 </li>
                 <li class="nav-item">
                     <a id="yourFavoritesNavBarLink" class="nav-link text-white" href="#">Your Favorites</a>
+                </li>
+                <li class="nav-item">
+                    <a id="clearFavoritesNavBarLink" class="nav-link text-white" href="#">Clear Favorites</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -42,8 +50,14 @@
 
 <div class="container">
 
+    <!-- Back to top button -->
+    <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+<!--        <i class="fas fa-arrow-up"></i>-->
+        Back to top
+    </button>
+
     <div class="text-center mt-4">
-        <img src="img/Pokédex_logo.png" height="140" width="387" alt="pokedexLogo"/>
+        <img id="Pokedeximg" src="img/Pokédex_logo.png" height="140" width="387" alt="pokedexLogo"/>
     </div>
 
     <div id="userPokemonSearchDisplay" class="row justify-content-center mt-3">
@@ -52,25 +66,6 @@
 
     <div id="userFavoritePokemon" class="row justify-content-center mt-3">
     </div>
-    <div id="userFavoritePokemon2" class="row justify-content-center mt-3">
-    </div>
-    <div id="userFavoritePokemon3" class="row justify-content-center mt-3">
-    </div>
-    <div id="userFavoritePokemon4" class="row justify-content-center mt-3">
-    </div>
-    <div id="userFavoritePokemon5" class="row justify-content-center mt-3">
-    </div>
-    <div id="userFavoritePokemon6" class="row justify-content-center mt-3">
-    </div>
-    <div id="userFavoritePokemon7" class="row justify-content-center mt-3">
-    </div>
-    <div id="userFavoritePokemon8" class="row justify-content-center mt-3">
-    </div>
-    <div id="userFavoritePokemon9" class="row justify-content-center mt-3">
-    </div>
-    <div id="userFavoritePokemon10" class="row justify-content-center mt-3">
-    </div>
-
 
     <div id="pokedex" class="row mt-4">
 

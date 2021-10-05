@@ -24,7 +24,7 @@ const colors = {
 
 const fetchPokemon = () => {
     const promises = []; // Start off with an empty array of promises
-    for (let i = 1; i <= 150; i++) { //Max is 898.
+    for (let i = 1; i <= 898; i++) { //Max is 898.
         const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${i}`;
         promises.push(fetch(pokemonUrl).then((res) => res.json())); //For each one of our requests we push them to promise array
     }
@@ -48,8 +48,8 @@ const displayPokemon = ((pokemon, divId) => {
 <div class="col-sm-12 col-med-6 col-lg-4 col-xl-4 col-xxl-2">
     <div id="${pokeman.name}" class="card mb-2 shadow-lg pokemonCard" style="background-color: ${pokeman.color} ">
         <img class="card-img-top" src="${pokeman.image}"/>
-        <h3 class="card-title text-center">${pokeman.id}. ${pokeman.name}</h3>
-        <div class="row">
+        <h4 class="card-title text-center">${pokeman.id}. ${pokeman.name}</h4>
+        <div class="row text-center">
             <div class="col-8 card-text text-center m-2">Type: ${pokeman.type}
             </div>
                 <div class="col-3 my-auto">
@@ -110,8 +110,8 @@ $(document).on('click', '.fas', function () {
 
 //Local Storage
 
-const localStorageArray = [];
-const localStoragePromises =[];
+let localStorageArray = [];
+let localStoragePromises =[];
 
 function localStoragePokemon(localStorageArrayElementValue){
     let userPokemonFavorite = localStorage.getItem(localStorageArrayElementValue)
@@ -137,4 +137,36 @@ $("#yourFavoritesNavBarLink").click(function(e){
     $('#pokedex').hide();
 })
 
+//Clear local storage
+$("#clearFavoritesNavBarLink").click(function(){
+    location.reload()
+    localStorageArray =[];
+})
 
+//Back to top button event listeners and javascript
+//Get the button
+let mybutton = document.getElementById("btn-back-to-top");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    if (
+        document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20
+    ) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+}
+// When the user clicks on the button, scroll to the top of the document
+mybutton.addEventListener("click", backToTop);
+
+
+function backToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
