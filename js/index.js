@@ -59,7 +59,7 @@ const displayPokemon = ((pokemon, divId) => {
 <!--        </div> -->
         <div class="card card-back mb-2 shadow-lg pokemonCard" style="background-color: ${pokeman.color}">
             <img class="card-img mb-0 pb-0" src="${pokeman.image2}"/>
-            <h4 class="card-title m-0 p-0 text-center">Ability</h4>
+            <h4 class="card-title m-0 p-0 text-center">Ability:</h4>
             <div class="row text-center">
                 <div class="col-8 card-text text-center m-2">${pokeman.ability}
                 </div>
