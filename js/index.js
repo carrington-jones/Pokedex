@@ -30,7 +30,7 @@ const fetchPokemon = () => {
     }
     Promise.all(promises).then((results => {
         const pokemon = results.map((data) => ({ //iterating through each result, going to get a reference to each one of those. With each one of those it then converts it to our built object
-            name: capitalizeFirstLetter(data.name),
+            name: capitalizeFirstLetter(data.species.name),
             id: data.id,
             image: data.sprites['front_default'],
             image2: data.sprites['front_shiny'],
@@ -101,7 +101,7 @@ function getPokemonData() {
     promises.push(fetch(url).then((data) => data.json()))
     Promise.all(promises).then((results => {
         const pokemon = results.map((data) => ({ //iterating through each result, going to get a reference to each one of those. With each one of those it then converts it to our built object
-            name: capitalizeFirstLetter(data.name),
+            name: capitalizeFirstLetter(data.species.name),
             id: data.id,
             image: data.sprites['front_default'],
             type: capitalizeFirstLetter(data.types[0].type.name), //This grabs each name in type and creates a new array. It then joins them into a string.
@@ -131,7 +131,7 @@ function localStoragePokemon(localStorageArrayElementValue) {
     localStoragePromises.push(fetch(url).then((data) => data.json()))
     Promise.all(localStoragePromises).then((results => {
         const pokemon = results.map((data) => ({ //iterating through each result, going to get a reference to each one of those. With each one of those it then converts it to our built object
-            name: capitalizeFirstLetter(data.name),
+            name: capitalizeFirstLetter(data.species.name),
             id: data.id,
             image: data.sprites['front_default'],
             type: capitalizeFirstLetter(data.types[0].type.name), //This grabs each name in type and creates a new array. It then joins them into a string.
